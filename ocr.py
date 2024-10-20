@@ -1,35 +1,25 @@
-import pytesseract
-from pytesseract import Output
-import cv2
-import numpy as np
-
+import pytesseract  # Import the Tesseract OCR library
+from pytesseract import Output  # Import Output to use specific output types
+import cv2  # OpenCV library for image processing
+import numpy as np  # NumPy for numerical operations
 
 def read(img):
-    # gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    # thresh = 127
-    # im_bw = cv2.threshold(gray, thresh, 255, cv2.THRESH_BINARY)[1]
-    # thresh=cv2.threshold(gray,0,255,cv2.THRESH_BINARY|cv2.THRESH_OTSU)[1]
-    # coords= np.column_stack(np.where(thresh>0))
-    # angle=cv2.minAreaRect(coords)[-1]
-    # if angle< -45:
-    #     angle=-(90+angle)
-    # else:
-    #     angle= 90-angle
-    # (h,w)=img.shape[:2]
-    # center=(w // 2,h // 2)
-    # M=cv2.getRotationMatrix2D(center,angle,1.0)
-    # rotated = cv2.warpAffine(img,M,(w,h),flags=cv2.INTER_CUBIC,borderMode=cv2.BORDER_REPLICATE)
-
+    # Use Tesseract to extract data from the image
     d = pytesseract.image_to_data(img, output_type=Output.DICT)
 
-    
-    
-    
-    n_boxes = len(d['level'])
-    new_d = {}
+    n_boxes = len(d['level'])  # Get the number of detected boxes
+    new_d = {}  # Dictionary to store text and its center coordinates
+
     for i in range(n_boxes):
+        # Get the bounding box coordinates and dimensions
         (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
+        
+        # Draw a rectangle around the detected text in the image
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        new_d[d['text'][i]] = [int(x+w/2), int(y+h/2)]
-    return new_d
+        
+        # Check if the detected text is not empty
+        if d['text'][i].strip():  # Ignore empty text entries
+            new_d[d['text'][i]] = [int(x + w / 2), int(y + h / 2)]  # Store text with center coordinates
+
+    return new_d  # Return the dictionary containing detected text and their positions
 
