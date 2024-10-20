@@ -87,9 +87,9 @@ pip install pytesseract
 __Code__: [Object_recognition.py](Object_recognition.py) & [Object_detection.py](Object_detection.py)
 
  1. The device has an added mode that helps the user in object recognition. Assists the user by identifying and playing the sound of the object's name. 
- 2. The object detection is done using the Yolo algorithm. To understand more about the Yolo algorithm refer: [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet)
+ 2. The object detection is done using the `Yolo algorithm`. To understand more about the Yolo algorithm refer: [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet)
 
-To use the Yolo algorith download the [coco.names](https://github.com/AlexeyAB/darknet/blob/master/data/coco.names), [yolov4-tiny.cfg](https://github.com/AlexeyAB/darknet/blob/master/cfg/yolov4-tiny.cfg) and the [yolov4-tiny.weights](yolov4-tiny.weights) files from [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet)
+To use the codes [Object_recognition.py](Object_recognition.py) & [Object_detection.py](Object_detection.py) implemented using the Yolo algorithm download the [coco.names](https://github.com/AlexeyAB/darknet/blob/master/data/coco.names), [yolov4-tiny.cfg](https://github.com/AlexeyAB/darknet/blob/master/cfg/yolov4-tiny.cfg) and the [yolov4-tiny.weights](yolov4-tiny.weights) files from [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet)
 
 The code [Object_detection.py](Object_detection.py) detects all the objects in the image. But for assisting the user, the object to which the user points must be read. This is done in the code [Object_recognition.py](Object_recognition.py).
 1. __Initialization and Model Setup__: The code initializes the YOLOv4 model using the yolov4.weights and yolov4.cfg files. It reads class names from coco.names and sets up the webcam to capture live video frames.
