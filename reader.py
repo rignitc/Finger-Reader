@@ -23,14 +23,14 @@ while True:
     # Convert the image from BGR to HSV color space
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    # Define the minimum and maximum HSV values for color detection
+    # Define the minimum and maximum HSV values for color detection (This is the range of skin color)
     hsv_min = np.array([0, 30, 60])  # Lower bound for HSV values
     hsv_max = np.array([20, 150, 255])  # Upper bound for HSV values
 
-    # Create a mask to isolate the colors within the specified range
+    # Create a mask to isolate the colors within the specified range (Isolating the image of finger)
     mask = cv2.inRange(hsv, hsv_min, hsv_max)
 
-    # Correct any skew in the mask image
+    # Correct any skew in the mask image (If the code is slow, comment this line. It works without deskewing, but camera has to be held as to get vertical image)
     mask = deskew(mask)  # Correct any skew in the mask image
 
     # Apply thresholding to create a binary image
@@ -55,14 +55,14 @@ while True:
                     ans = j[0]  # Store the x-coordinate
                     ans1 = j[1]  # Store the y-coordinate
 
-        # cx and cy are the coordinates of the lowest point in the largest contour
+        # cx and cy are the coordinates of the lowest point in the largest contour (The points are the coordinates of the tip of the finger)
         cx, cy = ans, ans1
         min_dist = 1000  # Initialize a large distance for comparison
         final_text = None  # Variable to hold the recognized text
 
         # Perform OCR on the image and get detected text and their positions
         for text, center in read(img).items():
-            # Calculate the distance between the detected text and the lowest contour point
+            # Calculate the distance between the detected text and the lowest contour point tip of the finger)(
             dist = sqrt_d(cx, cy, center[0], center[1])
             if dist < min_dist:  # If this distance is the smallest found
                 min_dist = dist  # Update minimum distance
