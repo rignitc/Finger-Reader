@@ -1,4 +1,3 @@
-import sys  # Import the sys module for system-specific parameters and functions
 import cv2  # Import OpenCV library for image and video processing
 import numpy as np  # Import NumPy for numerical operations
 
